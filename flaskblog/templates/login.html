@@ -40,14 +40,14 @@
         <div class="form-group">
             {{ form.submit(class="btn btn-outline-info mt-3") }}
             <small class="text-mutes ml-2">
-                <a href="{{ url_for('reset_request') }}">Forgot Password</a>
+                <a href="{{ url_for('users.reset_request') }}">Forgot Password</a>
             </small>
         </div>
     </form>
 </div>
 <div class="border-top pt-3">
     <small class="text-muted">
-        Need an account? <a class="ml-2 text-decoration-none " href="{{ url_for('register') }}">Register Now</a>
+        Need an account? <a class="ml-2 text-decoration-none " href="{{ url_for('users.register') }}">Register Now</a>
     </small>
 </div>
 {% endblock content %}
