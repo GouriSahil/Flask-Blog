@@ -1,6 +1,4 @@
-#!/bin/sh
-'''exec' "/home/sahilgouri/MyProject/Flask Blog/.venv/bin/python" "$0" "$@"
-' '''
+#!/home/sahilgouri/Learning/DE/Flask-Blog/.venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
