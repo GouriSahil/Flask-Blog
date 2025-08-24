@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- Bootstrap CSS - Provides responsive grid system and styling -->
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-	<!-- Font Awesome - Provides icons for better UI -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+<!-- Optional: Font Awesome for icons (if needed) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
-	<!-- Custom CSS - Application-specific styles -->
 	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='main.css')}}" >
 
-	<!-- Dynamic Page Title -->
 	{% if title %}
 		<title>Flask Blog - {{title}} </title>
 	{% else %}
@@ -18,44 +16,27 @@
 	{% endif %}
 </head>
 <body>
-<!-- Site Header with Navigation -->
 <header class="site-header">
 	<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
 		<div class="container">
-			<!-- Brand/Logo -->
 			<a class="navbar-brand mr-4" href="/home">Flask Blog</a>
-			
-			<!-- Mobile Navigation Toggle -->
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
 					aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			
-			<!-- Navigation Menu -->
 			<div class="collapse navbar-collapse" id="navbarToggle">
-				<!-- Left Side Navigation - Public Pages -->
 				<div class="navbar-nav mr-auto">
-					<!-- Home page link - uses main blueprint -->
 					<a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
-					<!-- About page link - static route -->
 					<a class="nav-item nav-link" href="/about">About</a>
 				</div>
-				
-				<!-- Right Side Navigation - User-specific Actions -->
+				<!-- Navbar Right Side -->
 				<div class="navbar-nav ms-auto"> <!-- Change navbar-right to ml-md-auto -->
 					{% if current_user.is_authenticated %}
-						<!-- Logged-in User Menu -->
-						<!-- New Post link - uses posts blueprint -->
-						<a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a>
-						<!-- Account link - uses users blueprint -->
-						<a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
-						<!-- Logout link - uses users blueprint -->
-						<a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+					<a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a>
+					<a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
+					<a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
 					{% else %}
-						<!-- Guest User Menu -->
-						<!-- Login link - uses users blueprint -->
 						<a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
-						<!-- Register link - uses users blueprint -->
 						<a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a>
 					{% endif %}
 				</div>
@@ -64,29 +45,20 @@
 	</nav>
 </header>
 
-<!-- Main Content Area -->
 <main role="main" class="container">
 	<div class="row">
-		<!-- Primary Content Column (8/12 width) -->
 		<div class="col-md-8">
-			<!-- Flash Messages Display -->
 			{% with messages = get_flashed_messages(with_categories= true) %}
 				{% if messages %}
 					{% for category , message in messages %}
-						<!-- Bootstrap alert with dynamic category (success, danger, info, warning) -->
 						<div class="alert alert-{{ category }}">
 							{{ message }}
 						</div>
 					{% endfor %}
 				{% endif %}
 			{% endwith %}
-			
-			<!-- Page Content Block -->
-			<!-- This is where individual page content will be inserted -->
 			{% block content %}{% endblock %}
 		</div>
-		
-		<!-- Sidebar Column (4/12 width) -->
 		<div class="col-md-4">
 			<div class="content-section">
 				<h3>Our Sidebar</h3>
@@ -103,53 +75,11 @@
 	</div>
 </main>
 	
-	<!-- JavaScript Dependencies -->
-	<!-- jQuery - Required for Bootstrap JavaScript components -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-	<!-- Bootstrap JS - Provides interactive components (dropdowns, modals, etc.) -->
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
-
-<!-- 
-Template Structure Summary:
-==========================
-
-This is the base layout template that all other templates extend from.
-It provides the common structure for the entire application.
-
-Key Components:
-1. Navigation Bar:
-   - Brand/Logo link
-   - Public navigation (Home, About)
-   - Conditional user navigation (Login/Register vs New Post/Account/Logout)
-   - Responsive mobile menu
-
-2. Content Area:
-   - Two-column layout (8/4 grid)
-   - Flash messages display
-   - Content block for page-specific content
-   - Sidebar with static content
-
-3. Blueprint Integration:
-   - url_for('main.home') - Links to main blueprint home route
-   - url_for('users.login') - Links to users blueprint login route
-   - url_for('posts.new_post') - Links to posts blueprint new post route
-   - etc.
-
-4. Authentication Integration:
-   - current_user.is_authenticated - Checks if user is logged in
-   - Conditional navigation based on authentication status
-
-5. Flash Messages:
-   - Displays success, error, info, and warning messages
-   - Uses Bootstrap alert styling
-   - Messages are set in routes using flash() function
-
-Template Inheritance:
-- Other templates extend this layout using {% extends "layout.html" %}
-- Page-specific content goes in the {% block content %} section
-- This ensures consistent styling and navigation across all pages
--->

@@ -1,216 +1,278 @@
-# Flask Blog Application
+# 📝 Flask Blog
 
-A complete blog application built with Flask, featuring user authentication, blog post management, and a modern responsive UI.
+A full-featured blogging platform built with Flask that demonstrates modern web development practices including user authentication, CRUD operations, and responsive design.
 
-## 🏗️ Project Architecture
+## 🚀 Live Demo
 
-This project uses **Flask Blueprints** for modular organization. Think of blueprints as separate modules that handle different parts of the application.
+Visit the application at `http://localhost:5000` after running the setup instructions below.
 
-### 📁 Project Structure
+## ✨ Features
+
+### 🔐 User Authentication & Management
+- **User Registration & Login**: Secure user registration with email validation
+- **Password Reset**: Email-based password reset functionality using secure tokens
+- **Session Management**: Persistent login sessions with Flask-Login
+- **Profile Management**: Update account details and profile pictures
+- **Authorization**: Role-based access control for post management
+
+### 📝 Blog Post Management
+- **Create Posts**: Rich text editor for creating new blog posts
+- **Edit & Delete**: Authors can edit and delete their own posts
+- **Post Pagination**: Efficient pagination for large numbers of posts
+- **Post History**: Chronological display of posts with timestamps
+- **Author Attribution**: Posts are linked to their authors
+
+### 🎨 User Interface
+- **Responsive Design**: Bootstrap-based responsive layout
+- **Modern UI**: Clean, professional interface with navigation
+- **User Profiles**: Individual user post pages
+- **Flash Messages**: User-friendly notifications for actions
+- **Image Upload**: Profile picture upload functionality
+
+### 🔧 Technical Features
+- **Database Management**: SQLite database with SQLAlchemy ORM
+- **Form Validation**: WTForms integration with custom validators
+- **Security**: Password hashing with bcrypt
+- **Email Integration**: SMTP email functionality for password resets
+- **Blueprint Architecture**: Modular code organization with Flask blueprints
+
+## 🛠️ Technology Stack
+
+| Component | Technology |
+|-----------|------------|
+| **Backend Framework** | Flask 3.x |
+| **Database** | SQLite with SQLAlchemy ORM |
+| **Authentication** | Flask-Login, Flask-Bcrypt |
+| **Forms** | Flask-WTF, WTForms |
+| **Email** | Flask-Mail |
+| **Frontend** | HTML5, CSS3, Bootstrap |
+| **Templating** | Jinja2 |
+| **Development** | Python 3.12+ |
+
+## 📁 Project Structure
 
 ```
 Flask-Blog/
 ├── flaskblog/
-│   ├── __init__.py          # Main application factory & configuration
+│   ├── __init__.py          # Flask app configuration
 │   ├── models.py            # Database models (User, Post)
-│   ├── main/                # Main blueprint - public pages
+│   ├── main/               # Main routes (home, about)
 │   │   ├── __init__.py
-│   │   └── routes.py        # Home & About routes
-│   ├── user/                # Users blueprint - authentication
+│   │   └── routes.py
+│   ├── user/               # User authentication routes
 │   │   ├── __init__.py
-│   │   ├── routes.py        # Login, register, account routes
-│   │   ├── forms.py         # User-related forms
-│   │   └── utils.py         # Helper functions
-│   ├── posts/               # Posts blueprint - blog management
+│   │   ├── routes.py
+│   │   ├── forms.py
+│   │   └── utils.py
+│   ├── posts/              # Blog post management routes
 │   │   ├── __init__.py
-│   │   ├── routes.py        # CRUD operations for posts
-│   │   └── forms.py         # Post-related forms
-│   ├── templates/           # HTML templates
-│   └── static/              # CSS, JS, images
-├── instance/                # Database files
-├── main.py                  # Application entry point
-└── run.py                   # Development server runner
+│   │   ├── routes.py
+│   │   └── forms.py
+│   ├── templates/          # Jinja2 HTML templates
+│   └── static/             # CSS, images, and static files
+├── run.py                  # Application entry point
+├── create_db.py           # Database initialization script
+├── pyproject.toml         # Project dependencies and metadata
+├── uv.lock               # Lock file for uv package manager
+└── README.md              # This file
 ```
 
-## 🔄 Application Flow
+## 🚀 Quick Start
 
-### 1. **Application Initialization** (`flaskblog/__init__.py`)
-- Creates Flask app instance
-- Configures database, authentication, email
-- Registers all blueprints
+### Prerequisites
+- Python 3.12 or higher
+- uv package manager (recommended) or pip
 
-### 2. **Blueprint Organization**
+### Installation Options
 
-#### **Main Blueprint** (`flaskblog/main/routes.py`)
-- **Purpose**: Public pages accessible to everyone
-- **Routes**:
-  - `/` and `/home` → Display all blog posts with pagination
-  - `/about` → Static about page
+#### Option 1: Using uv Package Manager (Recommended)
 
-#### **Users Blueprint** (`flaskblog/user/routes.py`)
-- **Purpose**: User authentication and account management
-- **Routes**:
-  - `/register` → Create new user account
-  - `/login` → User authentication
-  - `/logout` → End user session
-  - `/account` → Update profile information
-  - `/user/<username>` → View user's posts
-  - `/reset_password` → Password reset request
-  - `/reset_password/<token>` → Complete password reset
-
-#### **Posts Blueprint** (`flaskblog/posts/routes.py`)
-- **Purpose**: Blog post CRUD operations
-- **Routes**:
-  - `/post/new` → Create new blog post
-  - `/post/<id>` → View specific post
-  - `/post/<id>/update` → Edit existing post
-  - `/post/<id>/delete` → Delete post
-
-### 3. **Database Models** (`flaskblog/models.py`)
-
-#### **User Model**
-```python
-class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
-    password = db.Column(db.String(60), nullable=False)
-    posts = db.relationship('Post', backref='author', lazy=True)
-```
-
-#### **Post Model**
-```python
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-```
-
-**Relationship**: One User can have many Posts (one-to-many)
-
-## 🔐 Security Features
-
-### Authentication & Authorization
-- **Password Hashing**: bcrypt for secure password storage
-- **Session Management**: Flask-Login for user sessions
-- **CSRF Protection**: Flask-WTF forms prevent cross-site request forgery
-- **Authorization**: Users can only modify their own posts
-
-### Password Reset
-- **Secure Tokens**: Time-limited tokens for password reset
-- **Email Integration**: SMTP email sending for reset links
-- **Token Verification**: Validates tokens before allowing password changes
-
-## 🎨 Frontend Structure
-
-### Template Inheritance
-- **Base Template**: `layout.html` provides common structure
-- **Page Templates**: Extend base template for specific pages
-- **Responsive Design**: Bootstrap 4 for mobile-friendly UI
-
-### Navigation
-- **Public Navigation**: Home, About (accessible to everyone)
-- **User Navigation**: Login/Register (guests) vs New Post/Account/Logout (authenticated users)
-
-## 🚀 User Journey Examples
-
-### New User Registration
-1. User visits `/register`
-2. Fills out registration form
-3. Password is hashed and stored
-4. User is redirected to login page
-5. User logs in and can create posts
-
-### Creating a Blog Post
-1. Logged-in user clicks "New Post"
-2. User fills out post form
-3. Post is saved to database with user as author
-4. User is redirected to home page
-5. New post appears in post list
-
-### Reading and Managing Posts
-1. Anyone can view posts at `/post/<id>`
-2. Post author sees edit/delete buttons
-3. Author can update or delete their posts
-4. Non-authors get 403 error if trying to modify others' posts
-
-## 🔧 Key Technologies
-
-- **Flask**: Web framework
-- **SQLAlchemy**: Database ORM
-- **Flask-Login**: User session management
-- **Flask-WTF**: Form handling and CSRF protection
-- **Bcrypt**: Password hashing
-- **Bootstrap**: Frontend framework
-- **SQLite**: Database (can be changed to PostgreSQL/MySQL)
-
-## 📝 Development Notes
-
-### Blueprint Benefits
-- **Modularity**: Each blueprint handles specific functionality
-- **Maintainability**: Easy to find and modify features
-- **Scalability**: Can add new blueprints without affecting existing ones
-- **Testing**: Can test each blueprint independently
-
-### Database Operations
-- **CREATE**: `db.session.add(object)` + `db.session.commit()`
-- **READ**: `Model.query.get(id)` or `Model.query.filter_by().first()`
-- **UPDATE**: Modify object attributes + `db.session.commit()`
-- **DELETE**: `db.session.delete(object)` + `db.session.commit()`
-
-### URL Generation
-- **Blueprint Routes**: `url_for('blueprint_name.route_function')`
-- **Examples**:
-  - `url_for('main.home')` → `/home`
-  - `url_for('users.login')` → `/login`
-  - `url_for('posts.new_post')` → `/post/new`
-
-## 🛠️ Running the Application
-
-1. **Install Dependencies**:
+1. **Install uv** (if not already installed)
    ```bash
-   pip install -r requirements.txt
+   # On macOS/Linux
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   
+   # On Windows
+   powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
    ```
 
-2. **Set Environment Variables** (for email functionality):
+2. **Clone the repository**
    ```bash
-   export EMAIL_USER="your-email@gmail.com"
-   export EMAIL_PASS="your-app-password"
+   git clone <repository-url>
+   cd Flask-Blog
    ```
 
-3. **Initialize Database**:
+3. **Initialize the project with uv**
+   ```bash
+   uv init
+   ```
+
+4. **Install dependencies**
+   ```bash
+   uv add flask flask-sqlalchemy flask-login flask-bcrypt flask-wtf flask-mail email-validator pillow python-dotenv
+   ```
+
+5. **Initialize the database**
+   ```bash
+   uv run python create_db.py
+   ```
+
+6. **Run the application**
+   ```bash
+   uv run python run.py
+   ```
+
+7. **Access the application**
+   Open your browser and navigate to `http://localhost:5000`
+
+#### Option 2: Using Traditional pip
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd Flask-Blog
+   ```
+
+2. **Create a virtual environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies**
+   ```bash
+   pip install flask flask-sqlalchemy flask-login flask-bcrypt flask-wtf flask-mail email-validator pillow python-dotenv
+   ```
+
+4. **Initialize the database**
    ```bash
    python create_db.py
    ```
 
-4. **Run Development Server**:
+5. **Run the application**
    ```bash
    python run.py
    ```
 
-5. **Access Application**: http://localhost:5000
+6. **Access the application**
+   Open your browser and navigate to `http://localhost:5000`
 
-## 🔍 Understanding the Code
+### Default Credentials
+The database initialization script creates two test users:
+- **User 1**: `gouri@gmail.com` / `password`
+- **User 2**: `asrar@demo.com` / `password`
 
-### For New Contributors
+## 🔧 Configuration
 
-1. **Start with `__init__.py`**: Understand how the app is configured
-2. **Review `models.py`**: See the data structure
-3. **Examine blueprints**: Each handles specific functionality
-4. **Check templates**: See how the UI is structured
-5. **Follow user flows**: Trace through registration → login → posting
+### Environment Variables (Optional)
+For email functionality (password reset), set these environment variables:
+- `EMAIL_USER`: Gmail address for password reset emails
+- `EMAIL_PASS`: Gmail app password for SMTP authentication
 
-### Key Concepts to Understand
+### Database Configuration
+- **Database**: SQLite (`site.db`)
+- **Location**: `instance/site.db` (created automatically)
 
-- **Blueprint Pattern**: Modular organization of routes
-- **Template Inheritance**: Base template with page-specific content
-- **Database Relationships**: One-to-many between User and Post
-- **Authentication Flow**: Registration → Login → Session Management
-- **Authorization**: Users can only modify their own content
+## 📚 Application Routes
 
-This application demonstrates best practices for Flask development with proper separation of concerns, security measures, and scalable architecture.
+### Public Routes
+- `GET /` or `GET /home` - Home page with blog posts
+- `GET /about` - About page
+- `GET /register` - User registration
+- `GET /login` - User login
+- `GET /reset_password` - Password reset request
+- `GET /reset_password/<token>` - Password reset with token
+
+### Protected Routes
+- `GET /account` - User account management
+- `POST /account` - Update account information
+- `GET /post/new` - Create new post form
+- `POST /post/new` - Create new post
+- `GET /post/<int:post_id>` - View specific post
+- `GET /post/<int:post_id>/update` - Edit post form
+- `POST /post/<int:post_id>/update` - Update post
+- `POST /post/<int:post_id>/delete` - Delete post
+- `GET /user/<string:username>` - User profile page
+- `GET /logout` - User logout
+
+## 🗄️ Database Schema
+
+### User Model
+- `id` (Primary Key)
+- `username` (Unique, 20 chars)
+- `email` (Unique, 120 chars)
+- `image_file` (Profile picture filename, default: 'default.jpg')
+- `password` (Hashed with bcrypt)
+- `posts` (Relationship to Post model)
+
+### Post Model
+- `id` (Primary Key)
+- `title` (100 chars)
+- `date_posted` (DateTime, default: current time)
+- `content` (Text)
+- `user_id` (Foreign Key to User)
+
+## 🔒 Security Features
+
+- **Password Hashing**: Bcrypt for secure password storage
+- **CSRF Protection**: Flask-WTF CSRF tokens on all forms
+- **Session Security**: Secure session management with Flask-Login
+- **Input Validation**: Form validation with WTForms
+- **Authorization**: User-specific post access control
+- **Secure Token Generation**: Password reset tokens with expiration
+
+## 🧪 Testing
+
+To test the application functionality:
+
+1. **Register a new account** or use the default credentials
+2. **Create a new post** using the "New Post" button
+3. **Edit your posts** by clicking the edit button
+4. **Test password reset** functionality (requires email configuration)
+5. **Upload a profile picture** in the account section
+6. **View user profiles** by clicking on usernames
+
+## 🚀 Deployment
+
+### Local Development
+```bash
+# Using uv
+uv run python run.py
+
+# Using traditional pip
+python run.py
+```
+
+### Production Deployment
+For production deployment, consider:
+- Using a production WSGI server (Gunicorn, uWSGI)
+- Setting up a proper database (PostgreSQL, MySQL)
+- Configuring environment variables
+- Setting up HTTPS
+- Using a reverse proxy (Nginx)
+- Using Docker for containerization
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🙏 Acknowledgments
+
+- Flask community for the excellent framework
+- Bootstrap for the responsive UI components
+- SQLAlchemy for the ORM functionality
+- uv team for the fast Python package manager
+
+---
+
+**Built with ❤️ using Flask**
 
 
