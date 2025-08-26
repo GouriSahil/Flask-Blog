@@ -1,4 +1,181 @@
 {% extends "layout.html" %}
 {% block content %}
-	<h1>About Page</h1>
+<div class="container mt-4">
+    <!-- Hero Section -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <h1 class="display-4 fw-bold text-primary mb-3">About Flask Blog</h1>
+            <p class="lead text-muted">A modern, feature-rich blogging platform built with Flask</p>
+            <hr class="my-4">
+        </div>
+    </div>
+
+    <!-- Project Overview -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-primary mb-3">
+                        <i class="fas fa-info-circle me-2"></i>Project Overview
+                    </h2>
+                    <p class="card-text">
+                        Flask Blog is a comprehensive blogging platform that demonstrates modern web development practices. 
+                        It's designed to provide a complete blogging experience with user authentication, content management, 
+                        and a beautiful responsive interface.
+                    </p>
+                    <p class="card-text">
+                        This project serves as both a functional blog platform and a learning resource for Flask development, 
+                        showcasing best practices in web application architecture and user experience design.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-primary mb-3">
+                        <i class="fas fa-star me-2"></i>Key Features
+                    </h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>User Registration & Authentication</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Create, Edit & Delete Blog Posts</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>User Profiles with Profile Pictures</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Password Reset Functionality</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Responsive Design</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Secure File Uploads</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>CSRF Protection</li>
+                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Clean & Modern UI</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technology Stack -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-primary mb-3">
+                        <i class="fas fa-code me-2"></i>Technology Stack
+                    </h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-secondary">Backend</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-1"><i class="fab fa-python me-2"></i>Python 3.x</li>
+                                <li class="mb-1"><i class="fas fa-flask me-2"></i>Flask Framework</li>
+                                <li class="mb-1"><i class="fas fa-database me-2"></i>SQLite Database</li>
+                                <li class="mb-1"><i class="fas fa-shield-alt me-2"></i>Flask-WTF (Forms)</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-secondary">Frontend</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-1"><i class="fab fa-bootstrap me-2"></i>Bootstrap 5</li>
+                                <li class="mb-1"><i class="fab fa-css3-alt me-2"></i>Custom CSS</li>
+                                <li class="mb-1"><i class="fab fa-html5 me-2"></i>HTML5</li>
+                                <li class="mb-1"><i class="fab fa-js me-2"></i>JavaScript</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Developer Section -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-primary mb-3">
+                        <i class="fas fa-user me-2"></i>About the Developer
+                    </h2>
+                    <p class="card-text">
+                        This project was developed as a learning experience in modern web development with Flask. 
+                        It demonstrates understanding of web frameworks, database design, user authentication, 
+                        and responsive web design principles.
+                    </p>
+                    <p class="card-text">
+                        The goal was to create a fully functional blogging platform that showcases best practices 
+                        in Flask development while providing a great user experience.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Goals -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-primary mb-3">
+                        <i class="fas fa-bullseye me-2"></i>Project Goals
+                    </h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-secondary">Learning Objectives</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-1"><i class="fas fa-graduation-cap me-2"></i>Flask Framework Mastery</li>
+                                <li class="mb-1"><i class="fas fa-graduation-cap me-2"></i>Database Design</li>
+                                <li class="mb-1"><i class="fas fa-graduation-cap me-2"></i>User Authentication</li>
+                                <li class="mb-1"><i class="fas fa-graduation-cap me-2"></i>Web Security</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-secondary">Target Audience</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-1"><i class="fas fa-users me-2"></i>Blog Writers</li>
+                                <li class="mb-1"><i class="fas fa-users me-2"></i>Content Creators</li>
+                                <li class="mb-1"><i class="fas fa-users me-2"></i>Developers Learning Flask</li>
+                                <li class="mb-1"><i class="fas fa-users me-2"></i>Web Development Students</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connect Section -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h2 class="card-title text-primary mb-3">
+                        <i class="fas fa-link me-2"></i>Connect & Contribute
+                    </h2>
+                    <p class="card-text mb-3">
+                        This is an open-source project. Feel free to explore the code, contribute, or use it as a learning resource.
+                    </p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="https://github.com/GouriSahil/Flask-Blog" class="btn btn-outline-primary" target="_blank">
+                            <i class="fab fa-github me-2"></i>View on GitHub
+                        </a>
+                        <a href="{{ url_for('main.home') }}" class="btn btn-primary">
+                            <i class="fas fa-home me-2"></i>Back to Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 {% endblock content %}
