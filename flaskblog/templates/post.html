@@ -8,12 +8,7 @@
 			<small class="text-muted">{{ post.date_posted.strftime('%d-%m-%Y') }}</small>
 			{% if post.author == current_user %}
 				<div>
-					<a href="{{ url_for('posts.update_post', post_id=post.id) }}" class="btn btn-secondary btn-sm m-1">U<!-- jQuery -->
-						<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-						
-						<!-- Bootstrap JS -->
-						<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-						pdate</a>
+					<a href="{{ url_for('posts.update_post', post_id=post.id) }}" class="btn btn-secondary btn-sm m-1">Update</a>
 					<button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
 				</div>
 			{% endif %}

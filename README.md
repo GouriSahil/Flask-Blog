@@ -98,7 +98,7 @@ Flask-Blog/
 
 2. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/GouriSahil/Flask-Blog.git
    cd Flask-Blog
    ```
 
@@ -106,6 +106,7 @@ Flask-Blog/
    ```bash
    uv init
    ```
+
 
 4. **Install dependencies**
    ```bash
@@ -129,7 +130,7 @@ Flask-Blog/
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/GouriSahil/Flask-Blog.git
    cd Flask-Blog
    ```
 
@@ -157,10 +158,6 @@ Flask-Blog/
 6. **Access the application**
    Open your browser and navigate to `http://localhost:5000`
 
-### Default Credentials
-The database initialization script creates two test users:
-- **User 1**: `gouri@gmail.com` / `password`
-- **User 2**: `asrar@demo.com` / `password`
 
 ## 🔧 Configuration
 
@@ -195,22 +192,7 @@ For email functionality (password reset), set these environment variables:
 - `GET /user/<string:username>` - User profile page
 - `GET /logout` - User logout
 
-## 🗄️ Database Schema
 
-### User Model
-- `id` (Primary Key)
-- `username` (Unique, 20 chars)
-- `email` (Unique, 120 chars)
-- `image_file` (Profile picture filename, default: 'default.jpg')
-- `password` (Hashed with bcrypt)
-- `posts` (Relationship to Post model)
-
-### Post Model
-- `id` (Primary Key)
-- `title` (100 chars)
-- `date_posted` (DateTime, default: current time)
-- `content` (Text)
-- `user_id` (Foreign Key to User)
 
 ## 🔒 Security Features
 
@@ -260,9 +242,6 @@ For production deployment, consider:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
