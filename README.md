@@ -4,9 +4,10 @@ A full-featured blogging platform built with Flask that demonstrates modern web 
 
 ## 🚀 Live Demo
 
-This project is deployed and live at `blogs.sahilgouri.me`
+This project is deployed and live at [blogs.sahilgouri.me](https://blogs.sahilgouri.me)
 
 > **Note**: The blog currently uses **dummy data and test posts** to demonstrate functionality.  
+> **Note 2**: The app is deployed on a **free-tier hosting provider**, so initial loading may be slow when the server spins up.  
 
 ## ✨ Features
 
