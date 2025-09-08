@@ -4,7 +4,9 @@ A full-featured blogging platform built with Flask that demonstrates modern web 
 
 ## 🚀 Live Demo
 
-Visit the application at `http://localhost:5000` after running the setup instructions below.
+This project is deployed and live at `blogs.sahilgouri.me`
+
+> **Note**: The blog currently uses **dummy data and test posts** to demonstrate functionality.  
 
 ## ✨ Features
 
@@ -48,6 +50,19 @@ Visit the application at `http://localhost:5000` after running the setup instruc
 | **Frontend** | HTML5, CSS3, Bootstrap |
 | **Templating** | Jinja2 |
 | **Development** | Python 3.12+ |
+
+## 🧑‍💻 My Role & Contributions
+
+- Designed and developed the entire application from scratch using **Flask**  
+- Deployed the project live on a custom domain: [blogs.sahilgouri.me](https://blogs.sahilgouri.me)  
+- Extended the base tutorial with **advanced features**:  
+  - Email-based password reset with secure tokens  
+  - Role-based access control for posts  
+  - Profile image upload with image processing  
+- Implemented **security best practices**: bcrypt password hashing, CSRF protection, and secure session management  
+- Structured the project using **Flask Blueprints** for clean, modular architecture  
+- Documented installation, setup, and usage for easy reproducibility  
+
 
 ## 📁 Project Structure
 
@@ -177,8 +192,7 @@ For email functionality (password reset), set these environment variables:
 - `GET /about` - About page
 - `GET /register` - User registration
 - `GET /login` - User login
-- `GET /reset_password` - Password reset request
-- `GET /reset_password/<token>` - Password reset with token
+
 
 ### Protected Routes
 - `GET /account` - User account management
@@ -201,7 +215,6 @@ For email functionality (password reset), set these environment variables:
 - **Session Security**: Secure session management with Flask-Login
 - **Input Validation**: Form validation with WTForms
 - **Authorization**: User-specific post access control
-- **Secure Token Generation**: Password reset tokens with expiration
 
 ## 🧪 Testing
 
