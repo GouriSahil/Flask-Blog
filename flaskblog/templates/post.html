@@ -1,39 +1,115 @@
 {% extends "layout.html" %}
 {% block content %}
-<article class="media content-section ">
-	<div class="media-body ">
-		<div class="article-metadata">
-			<img  class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
-			<a class="mr-2 text-decoration-none" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
-			<small class="text-muted">{{ post.date_posted.strftime('%d-%m-%Y') }}</small>
-			{% if post.author == current_user %}
-				<div>
-					<a href="{{ url_for('posts.update_post', post_id=post.id) }}" class="btn btn-secondary btn-sm m-1">Update</a>
-					<button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+	<div class="max-w-3xl mx-auto px-4 py-8">
+		<article class="bg-white rounded-xl shadow-sm hover:shadow-md transition p-6 sm:p-8">
+			<div class="flex flex-col gap-5 sm:flex-row sm:gap-6">
+			<a href="{{ url_for('users.user_posts', username=post.author.username) }}" class="shrink-0 self-start sm:mt-1">
+				<img class="h-12 w-12 rounded-full border-2 border-forest/10 object-cover shadow-sm" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" alt="">
+			</a>
+			<div class="min-w-0 flex-1">
+				<div class="flex flex-wrap items-center gap-2 border-b border-forest/10 pb-4 text-sm">
+					<a class="font-semibold text-forest hover:text-forest-light hover:underline" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+					<span class="text-forest/35" aria-hidden="true">·</span>
+					<time class="text-xs font-medium tabular-nums text-forest/50">{{ post.date_posted.strftime('%d %b %Y') }}</time>
+					{% if post.author == current_user %}
+						<span class="flex w-full flex-wrap gap-2 pt-3 sm:ml-auto sm:w-auto sm:justify-end sm:pt-0">
+							<a href="{{ url_for('posts.update_post', post_id=post.id) }}" class="app-btn-secondary py-2 text-xs">Update</a>
+							<button type="button" class="rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-xs font-semibold text-red-800 transition hover:bg-red-100" id="open-delete-dialog">Delete</button>
+						</span>
+					{% endif %}
 				</div>
-			{% endif %}
+				<h1 class="mt-5 text-2xl font-semibold text-gray-800">{{ post.title }}</h1>
+				<div class="post-content-body mt-6 whitespace-pre-line text-gray-600 leading-relaxed">{{ post.content }}</div>
+			</div>
 		</div>
-		<h2 class="article-title">{{ post.title }}</h2>
-		<p class="article-content">{{ post.content }}</p>
+		</article>
 	</div>
-</article>
 
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
-		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		  </button>
+	<dialog id="deleteModal" class="w-full max-w-md rounded-2xl border border-forest/10 bg-vanilla p-6 text-forest shadow-2xl">
+		<h2 class="text-lg font-bold text-forest">Delete this post?</h2>
+		<p class="mt-2 text-sm text-forest/70">This action cannot be undone.</p>
+		<div class="mt-6 flex flex-wrap justify-end gap-3">
+			<button type="button" class="app-btn-secondary" id="close-delete-dialog">Cancel</button>
+			<form action="{{ url_for('posts.delete_post', post_id=post.id) }}" method="post">
+				<input type="submit" class="app-btn-danger" value="Delete">
+			</form>
 		</div>
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		  <form action="{{ url_for('posts.delete_post', post_id=post.id) }}" method="post">
-			<input type="submit" class="btn btn-danger" value="Delete">
-		  </form>
-		</div>
-	  </div>
-	</div>
-</div> 
+	</dialog>
+
+	<!-- Pyodide for Python Code Playground -->
+	<script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+	<script>
+	(function () {
+		var d = document.getElementById('deleteModal');
+		var openBtn = document.getElementById('open-delete-dialog');
+		var closeBtn = document.getElementById('close-delete-dialog');
+		if (!d || !openBtn) return;
+		openBtn.addEventListener('click', function () { d.showModal(); });
+		if (closeBtn) closeBtn.addEventListener('click', function () { d.close(); });
+	})();
+
+	// Python Playground Logic
+	document.addEventListener("DOMContentLoaded", function() {
+		const contentDiv = document.querySelector('.post-content-body');
+		if (!contentDiv) return;
+
+		const content = contentDiv.innerHTML;
+		const regex = /```python\s*\n([\s\S]*?)```/g;
+		
+		if (!regex.test(content)) return;
+
+		// Initialize Pyodide once if there are code blocks
+		window.pyodideReadyPromise = loadPyodide();
+
+		contentDiv.innerHTML = content.replace(regex, function(match, code) {
+			const unescapedCode = code.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').trim();
+			
+			let html = '<div class="bg-gray-900 text-white rounded-lg w-full overflow-hidden text-left my-8" style="white-space: normal;">';
+			html += '<div class="flex justify-between items-center px-4 py-2 bg-gray-800">';
+			html += '<span class="text-xs text-gray-300">Python Playground</span>';
+			html += '<button onclick="runPython(this)" class="bg-teal-600 px-3 py-1 rounded text-sm hover:bg-teal-700">Run Code</button>';
+			html += '</div>';
+			html += '<textarea class="w-full bg-transparent text-sm p-4 font-mono outline-none resize-none text-left" rows="6" spellcheck="false" placeholder="Write Python code here...">' + unescapedCode + '</textarea>';
+			html += '<div class="output-container bg-black text-green-400 font-mono text-sm p-4 hidden whitespace-pre-wrap border-t border-gray-700 text-left"></div>';
+			html += '</div>';
+			
+			return html;
+		});
+	});
+
+	async function runPython(btn) {
+		const container = btn.closest('.my-8');
+		const code = container.querySelector('textarea').value;
+		const outputDiv = container.querySelector('.output-container');
+		const originalText = btn.innerHTML;
+		
+		btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Running...';
+		btn.disabled = true;
+		outputDiv.classList.remove('hidden');
+		outputDiv.textContent = "Initializing Python environment...\n";
+
+		try {
+			let pyodide = await window.pyodideReadyPromise;
+			outputDiv.textContent = "Executing...\n";
+			
+			// Redirect stdout
+			pyodide.runPython(`
+				import sys, io
+				sys.stdout = io.StringIO()
+			`);
+			
+			await pyodide.runPythonAsync(code);
+			
+			let stdout = pyodide.runPython("sys.stdout.getvalue()");
+			outputDiv.textContent = stdout || "Code executed successfully (no output).";
+			outputDiv.classList.replace('text-red-400', 'text-green-400');
+		} catch (err) {
+			outputDiv.textContent = err.toString();
+			outputDiv.classList.replace('text-green-400', 'text-red-400');
+		} finally {
+			btn.innerHTML = originalText;
+			btn.disabled = false;
+		}
+	}
+	</script>
 {% endblock content %}

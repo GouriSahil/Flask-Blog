@@ -1,26 +1,59 @@
 {% extends "layout.html" %}
 {% block content %}
-	{% for post in posts.items%}
-<article class="media content-section ">
-	<div class="media-body ">
-		<div class="article-metadata">
-			<img  class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
-			<a class="mr-2 text-decoration-none" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
-			<small class="text-muted">{{ post.date_posted.strftime('%d-%m-%Y') }}</small>
-		</div>
-		<h2><a class="article-title text-decoration-none" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
-		<p class="article-content">{{ post.content }}</p>
+	<header class="max-w-4xl mx-auto px-6 mb-8 border-b border-gray-200 pb-6">
+		<h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Latest posts</h1>
+		<p class="mt-1 text-sm text-gray-500">Updates from the community, newest first.</p>
+	</header>
+
+	<div class="max-w-4xl mx-auto px-6 py-8 space-y-8">
+		{% for post in posts.items %}
+			<div class="bg-white rounded-xl shadow-sm hover:shadow-md transition p-6">
+				<div class="flex gap-4">
+					<a href="{{ url_for('users.user_posts', username=post.author.username) }}" class="shrink-0 self-start" aria-label="{{ post.author.username }} profile">
+						<img class="h-11 w-11 rounded-full border border-gray-200 object-cover" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" alt="">
+					</a>
+					<div class="min-w-0 flex-1">
+						<div class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-sm text-gray-500">
+							<a class="font-medium hover:text-gray-700 hover:underline" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+							<span aria-hidden="true">·</span>
+							<time class="tabular-nums" datetime="{{ post.date_posted.isoformat() }}">{{ post.date_posted.strftime('%d %b %Y') }}</time>
+						</div>
+						<h2 class="mt-2 text-xl font-semibold text-gray-900">
+							<a class="hover:text-teal-800 transition" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a>
+						</h2>
+						<p class="post-preview-content mt-2 line-clamp-4 text-gray-600 leading-relaxed">{{ post.content }}</p>
+						<a href="{{ url_for('posts.post', post_id=post.id) }}" class="mt-3 inline-flex items-center text-sm text-teal-700 hover:text-teal-800 font-medium">Read post <span aria-hidden="true">→</span></a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
 	</div>
-</article>
-	{% endfor %}
-	{% for page_num in posts.iter_pages(left_edge=1,right_edge=1, left_current=1, right_current=2) %}
-		{% if page_num %}
-			{% if posts.page == page_num %}
-			<a class="btn btn- info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+
+	{% if posts.pages > 1 %}
+		<nav class="mt-10 flex flex-wrap items-center justify-center gap-2 sm:justify-start" aria-label="Pagination">
+			{% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+				{% if page_num %}
+					{% if posts.page == page_num %}
+						<span class="inline-flex min-w-[2.5rem] items-center justify-center rounded-xl bg-forest px-3 py-2 text-sm font-semibold text-vanilla shadow-sm">{{ page_num }}</span>
+					{% else %}
+						<a class="inline-flex min-w-[2.5rem] items-center justify-center rounded-xl border border-forest/15 bg-white px-3 py-2 text-sm font-semibold text-forest transition hover:border-forest hover:bg-forest/5" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+					{% endif %}
 				{% else %}
-				<a class="btn  mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
-			{% endif %}
-		{% else %}
-		{% endif %}
-	{% endfor %}
-{% endblock content%}
+					<span class="px-1 text-forest/40" aria-hidden="true">…</span>
+				{% endif %}
+			{% endfor %}
+		</nav>
+	{% endif %}
+
+	<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		const previews = document.querySelectorAll('.post-preview-content');
+		previews.forEach(p => {
+			let content = p.innerHTML;
+			// Replace raw python code blocks with a clean UI placeholder for the preview
+			content = content.replace(/```python[\s\S]*?```/g, '<span class="text-teal-600 font-medium">[Python Code Block]</span>');
+			p.innerHTML = content;
+		});
+	});
+	</script>
+{% endblock content %}

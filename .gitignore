@@ -209,3 +209,5 @@ __marimo__/
 __pycache__/
 *.pyc
 instance/site.db
+
+node_modules/

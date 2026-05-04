@@ -1,150 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="h-full">
 <head>
-	<!-- Bootstrap CSS -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Optional: Font Awesome for icons (if needed) -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-
-	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='main.css')}}" >
-
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}?v={{ config.ASSET_VERSION }}">
+	<style>
+		/* In-document fallback: works even if main.css is missing, blocked, or cached old. Palette: Teal Forest + Vanilla Latte. */
+		.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+		body.fb-ui{margin:0;min-height:100vh;display:flex;flex-direction:column;font-family:"DM Sans",system-ui,sans-serif;background-color:#F3E5C3;color:#174e4f;-webkit-font-smoothing:antialiased}
+		main.fb-main{flex:1;width:100%;max-width:48rem;margin-left:auto;margin-right:auto;padding:6rem 1rem 4rem;box-sizing:border-box}
+		@media(min-width:640px){main.fb-main{padding-left:1.5rem;padding-right:1.5rem;padding-top:7rem}}
+		footer.fb-footer{margin-top:auto;background-color:#174e4f;color:#f3e5c3;text-align:center;padding:2.5rem 1rem;font-size:.875rem;border-top:1px solid rgba(15,56,57,.35)}
+		footer.fb-footer p{margin:0}
+		footer.fb-footer .fb-muted{opacity:.75;margin-top:.35rem}
+		main.fb-main article{background:#fff;border:1px solid rgba(23,78,79,.12);border-radius:1rem;padding:1.25rem 1.5rem;margin-bottom:1rem;box-shadow:0 1px 3px rgba(23,78,79,.06)}
+		.app-header{background-color:#174e4f;color:#f3e5c3;border-bottom:1px solid rgba(15,56,57,.5);box-shadow:0 1px 3px rgba(23,78,79,.25)}
+		.app-header a{text-decoration:none}
+		.app-header-brand{color:#f3e5c3;font-weight:800}
+		.app-header-brand:hover{color:#fff}
+		.app-header-link{display:inline-flex;align-items:center;border-radius:.5rem;padding:.5rem .75rem;font-size:.875rem;font-weight:600;color:#f3e5c3;transition:background-color .15s,color .15s}
+		.app-header-link:hover{background-color:rgba(255,255,255,.14);color:#fff}
+		.app-header-cta{display:inline-flex;align-items:center;justify-content:center;margin-left:.25rem;border-radius:.75rem;padding:.5rem 1rem;font-size:.875rem;font-weight:700;color:#174e4f!important;background-color:#f3e5c3;border:1px solid rgba(243,229,195,.95);box-shadow:0 1px 2px rgba(15,56,57,.15);transition:background-color .15s,color .15s}
+		.app-header-cta:hover{background-color:#e8d9b4;color:#0f3839!important}
+		.app-header-menu-btn{display:flex;cursor:pointer;list-style:none;align-items:center;justify-content:center;border-radius:.75rem;border:1px solid rgba(243,229,195,.45);background-color:rgba(255,255,255,.1);padding:.625rem;color:#f3e5c3}
+		.app-header-menu-btn:hover{background-color:rgba(255,255,255,.18);color:#fff}
+		.app-header-menu-btn::-webkit-details-marker{display:none}
+		.app-header-dropdown{border:1px solid rgba(23,78,79,.15);background-color:#f3e5c3;color:#174e4f;box-shadow:0 8px 32px -8px rgba(23,78,79,.2)}
+		.app-header-dropdown a{color:#174e4f}
+		.app-header-dropdown a:hover{background-color:rgba(23,78,79,.08)}
+	</style>
 	{% if title %}
-		<title>Flask Blog - {{title}} </title>
+		<title>Flask Blog — {{ title }}</title>
 	{% else %}
 		<title>Flask Blog</title>
 	{% endif %}
 </head>
-<body>
-<header class="site-header">
-	<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-		<div class="container">
-			<a class="navbar-brand mr-4" href="/home">Flask Blog</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
-					aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarToggle">
-				<div class="navbar-nav mr-auto">
-					<a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
-					<a class="nav-item nav-link" href="/about">About</a>
-				</div>
-				<!-- Navbar Right Side -->
-				<div class="navbar-nav ms-auto"> <!-- Change navbar-right to ml-md-auto -->
+<body class="fb-ui flex min-h-screen flex-col bg-[#F3E5C3]">
+	<!-- flask-blog-ui: no-bootstrap single-column (if you still see an old sidebar, this file is not the one your server is rendering) -->
+	<header class="app-header fixed inset-x-0 top-0 z-50">
+		<div class="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between h-16">
+			<a href="{{ url_for('main.home') }}" class="app-header-brand text-base tracking-tight sm:text-lg">
+				<span>Flask</span><span class="ml-1 font-semibold opacity-95">Blog</span>
+			</a>
+
+			<nav class="hidden items-center gap-0.5 md:flex" aria-label="Main">
+				<a href="{{ url_for('main.home') }}" class="app-header-link">Home</a>
+				<a href="{{ url_for('main.about') }}" class="app-header-link">About</a>
+				{% if current_user.is_authenticated %}
+					<a href="{{ url_for('posts.new_post') }}" class="app-header-link">New Post</a>
+					<a href="{{ url_for('users.account') }}" class="app-header-link">Account</a>
+					<a href="{{ url_for('users.logout') }}" class="app-header-link">Logout</a>
+				{% else %}
+					<a href="{{ url_for('users.login') }}" class="app-header-link">Login</a>
+					<a href="{{ url_for('users.register') }}" class="app-header-cta">Register</a>
+				{% endif %}
+			</nav>
+
+			<details class="relative md:hidden">
+				<summary class="app-header-menu-btn marker:content-none">
+					<span class="sr-only">Open menu</span>
+					<i class="fas fa-bars text-lg" aria-hidden="true"></i>
+				</summary>
+				<div class="app-header-dropdown absolute right-0 mt-2 w-52 overflow-hidden rounded-2xl py-2">
+					<a href="{{ url_for('main.home') }}" class="block px-4 py-2.5 text-sm font-semibold">Home</a>
+					<a href="{{ url_for('main.about') }}" class="block px-4 py-2.5 text-sm font-semibold">About</a>
 					{% if current_user.is_authenticated %}
-					<a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New Post</a>
-					<a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
-					<a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+						<a href="{{ url_for('posts.new_post') }}" class="block px-4 py-2.5 text-sm font-semibold">New Post</a>
+						<a href="{{ url_for('users.account') }}" class="block px-4 py-2.5 text-sm font-semibold">Account</a>
+						<a href="{{ url_for('users.logout') }}" class="block px-4 py-2.5 text-sm font-semibold">Logout</a>
 					{% else %}
-						<a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
-						<a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a>
+						<a href="{{ url_for('users.login') }}" class="block px-4 py-2.5 text-sm font-semibold">Login</a>
+						<a href="{{ url_for('users.register') }}" class="block px-4 py-2.5 text-sm font-bold">Register</a>
 					{% endif %}
 				</div>
-			</div>
+			</details>
 		</div>
-	</nav>
-</header>
+	</header>
 
-<main role="main" class="container">
-	<div class="row">
-		<div class="col-md-8">
-			{% with messages = get_flashed_messages(with_categories= true) %}
-				{% if messages %}
-					{% for category , message in messages %}
-						<div class="alert alert-{{ category }}">
+	<main class="fb-main mx-auto w-full max-w-7xl flex-1 px-4 pb-16 pt-24 sm:px-6 sm:pt-28 animate-fade-in bg-transparent">
+		{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				<div class="mb-8 space-y-3">
+					{% for category, message in messages %}
+						{% set tone = 'border-forest/20 bg-white text-forest' %}
+						{% if category == 'success' %}
+							{% set tone = 'border-emerald-400/40 bg-emerald-50 text-emerald-900' %}
+						{% elif category == 'danger' or category == 'error' %}
+							{% set tone = 'border-red-300/60 bg-red-50 text-red-900' %}
+						{% elif category == 'warning' %}
+							{% set tone = 'border-amber-300/60 bg-amber-50 text-amber-900' %}
+						{% endif %}
+						<div class="rounded-xl border px-4 py-3 text-sm font-medium shadow-sm {{ tone }}" role="alert">
 							{{ message }}
 						</div>
 					{% endfor %}
-				{% endif %}
-			{% endwith %}
-			{% block content %}{% endblock %}
-		</div>
-		<div class="col-md-4">
-			<div class="content-section">
-				<h3 class="text-primary mb-3">
-					<i class="fas fa-fire me-2"></i>Trending
-				</h3>
-				<div class="list-group list-group-flush">
-					<a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-						<span>Latest Posts</span>
-						<span class="badge bg-primary rounded-pill">New</span>
-					</a>
-					<a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-						<span>Popular Topics</span>
-						<span class="badge bg-secondary rounded-pill">Hot</span>
-					</a>
-					<a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-						<span>Community</span>
-						<span class="badge bg-success rounded-pill">Active</span>
-					</a>
 				</div>
-			</div>
-			
-			<div class="content-section mt-4">
-				<h3 class="text-primary mb-3">
-					<i class="fas fa-chart-line me-2"></i>Blog Stats
-				</h3>
-				<div class="row text-center">
-					<div class="col-6">
-						<div class="border rounded p-2">
-							<h4 class="text-primary mb-0">15</h4>
-							<small class="text-muted">Posts</small>
-						</div>
-					</div>
-					<div class="col-6">
-						<div class="border rounded p-2">
-							<h4 class="text-success mb-0">8</h4>
-							<small class="text-muted">Authors</small>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="content-section mt-4">
-				<h3 class="text-primary mb-3">
-					<i class="fab fa-python me-2"></i>Python Topics
-				</h3>
-				<div class="list-group list-group-flush">
-					<a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-						<span>Flask Framework</span>
-						<span class="badge bg-primary rounded-pill">6</span>
-					</a>
-					<a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-						<span>Django</span>
-						<span class="badge bg-info rounded-pill">3</span>
-					</a>
-					<a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-						<span>Python Basics</span>
-						<span class="badge bg-warning rounded-pill">4</span>
-					</a>
-					<a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-						<span>Web APIs</span>
-						<span class="badge bg-success rounded-pill">2</span>
-					</a>
-				</div>
-			</div>
-			
-			<div class="content-section mt-4">
-				<h3 class="text-primary mb-3">
-					<i class="fas fa-info-circle me-2"></i>About
-				</h3>
-				<p class="text-muted">
-					Welcome to Flask Blog! A Python-focused community for Flask developers. 
-					Share tutorials, tips, and insights about Python web development.
-				</p>
-				<a href="/about" class="btn btn-sm btn-outline-info">
-					<i class="fas fa-arrow-right me-1"></i>Learn More
-				</a>
-			</div>
-		</div>
-	</div>
-</main>
-	
-	<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+			{% endif %}
+		{% endwith %}
+		{% block content %}{% endblock %}
+	</main>
 
-<!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
+	<footer class="fb-footer mt-auto border-t border-forest/15 bg-forest py-10 text-center text-sm text-vanilla/85">
+		<p class="font-semibold text-vanilla">Flask Blog</p>
+		<p class="fb-muted mt-1 text-vanilla/70">Built with Flask &amp; Tailwind CSS</p>
+	</footer>
 </body>
 </html>

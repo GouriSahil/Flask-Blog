@@ -1,0 +1,19 @@
+{
+  "name": "flask-blog",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i ./flaskblog/static/input.css -o ./flaskblog/static/main.css --minify",
+    "watch:css": "tailwindcss -i ./flaskblog/static/input.css -o ./flaskblog/static/main.css --watch"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.13",
+    "tailwindcss": "3"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

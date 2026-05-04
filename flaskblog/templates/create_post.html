@@ -1,43 +1,35 @@
 {% extends "layout.html" %}
 {% block content %}
-	<h1>Create New Post</h1>
-
-<div class="content-section">
-    <form method="post">
-        <!-- generates a hidden field that includes a token that is used to protect the form against CSRF attacks for which we have created secret token -->
-        {{ form.hidden_tag() }}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">{{ legend }}</legend>
-            <div class="form-group">
-                {{ form.title.label(class="form-control-label") }}
-                {% if form.title.errors %}
-                    {{ form.title(class="form-control is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.title.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.title(class="form-control ") }}
-                {% endif %}
-            </div>
-            <div class="form-group">
-                {{ form.content.label(class="form-control-label") }}
-                {% if form.content.errors %}
-                    {{ form.content(class="form-control is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.content.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.content(class="form-control ") }}
-                {% endif %}
-            </div>
-        </fieldset>
-        <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info mt-3") }}
-        </div>
-    </form>
-</div>
+	<div class="overflow-hidden rounded-2xl border border-forest/10 bg-white p-6 shadow-card ring-1 ring-black/[0.03] sm:p-8">
+		<h1 class="text-2xl font-bold tracking-tight text-forest">{{ legend }}</h1>
+		<p class="mt-2 text-sm text-forest/65">Write in clear paragraphs. You can edit or remove the post later.</p>
+		<form method="post" class="mt-8 space-y-5">
+			{{ form.hidden_tag() }}
+			<div>
+				{{ form.title.label(class="app-label") }}
+				{% if form.title.errors %}
+					{{ form.title(class="app-input app-input-error") }}
+					<div class="mt-2 text-sm text-red-700">
+						{% for error in form.title.errors %}<span>{{ error }}</span>{% endfor %}
+					</div>
+				{% else %}
+					{{ form.title(class="app-input") }}
+				{% endif %}
+			</div>
+			<div>
+				{{ form.content.label(class="app-label") }}
+				{% if form.content.errors %}
+					{{ form.content(class="app-input app-input-error min-h-[200px]") }}
+					<div class="mt-2 text-sm text-red-700">
+						{% for error in form.content.errors %}<span>{{ error }}</span>{% endfor %}
+					</div>
+				{% else %}
+					{{ form.content(class="app-input min-h-[200px]") }}
+				{% endif %}
+			</div>
+			<div class="pt-2">
+				{{ form.submit(class="app-btn-primary cursor-pointer border-0") }}
+			</div>
+		</form>
+	</div>
 {% endblock content %}

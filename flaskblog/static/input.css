@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply font-sans text-forest antialiased;
+  }
+
+  ::selection {
+    @apply bg-forest/20 text-forest-dark;
+  }
+}
+
+@layer components {
+  .app-shell {
+    @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .app-card {
+    @apply rounded-2xl border border-forest/10 bg-white/80 p-6 shadow-card backdrop-blur-sm transition-shadow duration-300 hover:shadow-soft;
+  }
+
+  .app-card-muted {
+    @apply rounded-2xl border border-forest/10 bg-white/45 p-5 backdrop-blur-sm;
+  }
+
+  .app-label {
+    @apply mb-1.5 block text-sm font-semibold tracking-wide text-forest;
+  }
+
+  .app-input {
+    @apply mt-1 block w-full rounded-xl border border-forest/15 bg-white/90 px-4 py-3 text-forest shadow-sm placeholder:text-forest/40 transition focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/25;
+  }
+
+  .app-input-error {
+    @apply border-red-400 focus:border-red-500 focus:ring-red-200;
+  }
+
+  .app-btn-primary {
+    @apply inline-flex cursor-pointer items-center justify-center rounded-xl bg-forest px-5 py-2.5 text-sm font-semibold text-vanilla shadow-soft transition hover:bg-forest-light focus:outline-none focus:ring-2 focus:ring-forest/40 focus:ring-offset-2 focus:ring-offset-vanilla;
+  }
+
+  .app-btn-secondary {
+    @apply inline-flex cursor-pointer items-center justify-center rounded-xl border border-forest/25 bg-transparent px-5 py-2.5 text-sm font-semibold text-forest transition hover:border-forest hover:bg-forest/5 focus:outline-none focus:ring-2 focus:ring-forest/25 focus:ring-offset-2 focus:ring-offset-vanilla;
+  }
+
+  .app-btn-danger {
+    @apply inline-flex cursor-pointer items-center justify-center rounded-xl bg-red-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-500/40 focus:ring-offset-2 focus:ring-offset-vanilla;
+  }
+
+  .app-link {
+    @apply font-medium text-forest underline decoration-forest/30 underline-offset-2 transition hover:text-forest-light hover:decoration-forest;
+  }
+
+  .article-avatar {
+    @apply h-14 w-14 shrink-0 rounded-2xl border-2 border-forest/10 object-cover shadow-sm ring-2 ring-white;
+  }
+
+  .article-avatar-lg {
+    @apply h-32 w-32 shrink-0 rounded-2xl border-2 border-forest/10 object-cover shadow-sm ring-2 ring-white sm:mr-6;
+  }
+}
+
+/* Native dialog backdrop (Tailwind backdrop utilities) */
+dialog::backdrop {
+  @apply bg-forest/40 backdrop-blur-sm;
+}
+
+/*
+ * Navbar — Teal Forest (#174E4F) + Vanilla Latte (#F3E5C3).
+ * Plain CSS so the bar stays visible even if utility classes are missing or purged.
+ */
+.app-header {
+  background-color: #174e4f;
+  color: #f3e5c3;
+  border-bottom: 1px solid rgba(15, 56, 57, 0.5);
+  box-shadow: 0 1px 3px rgba(23, 78, 79, 0.25);
+}
+
+.app-header a {
+  text-decoration: none;
+}
+
+.app-header-brand {
+  color: #f3e5c3;
+  font-weight: 800;
+}
+
+.app-header-brand:hover {
+  color: #ffffff;
+}
+
+.app-header-link {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #f3e5c3;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.app-header-link:hover {
+  background-color: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+.app-header-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.25rem;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #174e4f !important;
+  background-color: #f3e5c3;
+  border: 1px solid rgba(243, 229, 195, 0.95);
+  box-shadow: 0 1px 2px rgba(15, 56, 57, 0.15);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.app-header-cta:hover {
+  background-color: #e8d9b4;
+  color: #0f3839 !important;
+}
+
+.app-header-menu-btn {
+  display: flex;
+  cursor: pointer;
+  list-style: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(243, 229, 195, 0.45);
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.625rem;
+  color: #f3e5c3;
+}
+
+.app-header-menu-btn:hover {
+  background-color: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.app-header-menu-btn::-webkit-details-marker {
+  display: none;
+}
+
+.app-header-dropdown {
+  border: 1px solid rgba(23, 78, 79, 0.15);
+  background-color: #f3e5c3;
+  color: #174e4f;
+  box-shadow: 0 8px 32px -8px rgba(23, 78, 79, 0.2);
+}
+
+.app-header-dropdown a {
+  color: #174e4f;
+}
+
+.app-header-dropdown a:hover {
+  background-color: rgba(23, 78, 79, 0.08);
+}

@@ -1,207 +1,80 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="container mt-4">
-    <!-- Hero Section -->
-    <div class="row mb-5">
-        <div class="col-lg-8 mx-auto text-center">
-            <h1 class="display-4 fw-bold text-primary mb-3">About Flask Blog</h1>
-            <p class="lead text-muted">A modern, feature-rich blogging platform built with Flask</p>
-            <hr class="my-4">
-        </div>
-    </div>
+	<div class="space-y-8">
+		<section class="app-card text-center">
+			<h1 class="text-3xl font-bold tracking-tight text-forest sm:text-4xl">About Flask Blog</h1>
+			<p class="mx-auto mt-3 max-w-xl text-forest/75">A focused blogging demo built with Flask—styled with your Vanilla Latte and Teal Forest palette for a calm, professional reading experience.</p>
+			<div class="mx-auto mt-6 h-px max-w-xs bg-gradient-to-r from-transparent via-forest/25 to-transparent"></div>
+		</section>
 
-    <!-- Development Status -->
-    <div class="row mb-5">
-        <div class="col-lg-8 mx-auto">
-            <div class="alert alert-info border-0 shadow-sm" role="alert">
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-tools me-3 fs-4 text-primary"></i>
-                    <div>
-                        <h4 class="alert-heading mb-2">
-                            <i class="fas fa-code-branch me-2"></i>Project Status: Under Development
-                        </h4>
-                        <p class="mb-2">
-                            <strong>This project is currently in early development stage.</strong> 
-                            All content, posts, user data, and statistics shown on this website are 
-                            <strong>dummy/placeholder data</strong> for demonstration purposes only.
-                        </p>
-                        <p class="mb-0">
-                            <i class="fas fa-info-circle me-1"></i>
-                            The functionality is fully working, but the content is not real. 
-                            This is a learning project showcasing Flask development capabilities.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+		<section class="rounded-2xl border border-forest/15 bg-white/70 p-6 shadow-soft sm:p-8">
+			<div class="flex flex-col gap-4 sm:flex-row sm:items-start">
+				<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-forest text-vanilla">
+					<i class="fas fa-screwdriver-wrench text-lg" aria-hidden="true"></i>
+				</div>
+				<div class="text-left">
+					<h2 class="text-lg font-bold text-forest">Project status</h2>
+					<p class="mt-2 text-sm leading-relaxed text-forest/80">
+						This project is in active learning and demo mode. Some demo copy may appear as placeholders; core features—accounts, posts, uploads, and password reset—are wired for real use.
+					</p>
+				</div>
+			</div>
+		</section>
 
-    <!-- Project Overview -->
-    <div class="row mb-5">
-        <div class="col-lg-8 mx-auto">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h2 class="card-title text-primary mb-3">
-                        <i class="fas fa-info-circle me-2"></i>Project Overview
-                    </h2>
-                    <p class="card-text">
-                        Flask Blog is a comprehensive blogging platform that demonstrates modern web development practices. 
-                        It's designed to provide a complete blogging experience with user authentication, content management, 
-                        and a beautiful responsive interface.
-                    </p>
-                    <p class="card-text">
-                        This project serves as both a functional blog platform and a learning resource for Flask development, 
-                        showcasing best practices in web application architecture and user experience design.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+		<section class="app-card">
+			<h2 class="text-lg font-bold text-forest">Overview</h2>
+			<p class="mt-3 text-sm leading-relaxed text-forest/80">
+				Flask Blog shows how to structure a small Flask application with blueprints, SQLAlchemy models, authentication, and secure forms—without sacrificing a polished front end.
+			</p>
+		</section>
 
-    <!-- Features Section -->
-    <div class="row mb-5">
-        <div class="col-lg-8 mx-auto">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h2 class="card-title text-primary mb-3">
-                        <i class="fas fa-star me-2"></i>Key Features
-                    </h2>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <ul class="list-unstyled">
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>User Registration & Authentication</li>
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Create, Edit & Delete Blog Posts</li>
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>User Profiles with Profile Pictures</li>
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Password Reset Functionality</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <ul class="list-unstyled">
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Responsive Design</li>
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Secure File Uploads</li>
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>CSRF Protection</li>
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Clean & Modern UI</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+		<section class="app-card">
+			<h2 class="mb-4 text-lg font-bold text-forest">Key features</h2>
+			<ul class="grid gap-3 text-sm text-forest/85 sm:grid-cols-2">
+				<li class="flex items-center gap-2 rounded-xl bg-forest/5 px-3 py-2"><i class="fas fa-check text-forest-light" aria-hidden="true"></i> Registration &amp; login</li>
+				<li class="flex items-center gap-2 rounded-xl bg-forest/5 px-3 py-2"><i class="fas fa-check text-forest-light" aria-hidden="true"></i> Create, edit &amp; delete posts</li>
+				<li class="flex items-center gap-2 rounded-xl bg-forest/5 px-3 py-2"><i class="fas fa-check text-forest-light" aria-hidden="true"></i> Profile images</li>
+				<li class="flex items-center gap-2 rounded-xl bg-forest/5 px-3 py-2"><i class="fas fa-check text-forest-light" aria-hidden="true"></i> Password reset flow</li>
+				<li class="flex items-center gap-2 rounded-xl bg-forest/5 px-3 py-2"><i class="fas fa-check text-forest-light" aria-hidden="true"></i> Responsive Tailwind UI</li>
+				<li class="flex items-center gap-2 rounded-xl bg-forest/5 px-3 py-2"><i class="fas fa-check text-forest-light" aria-hidden="true"></i> CSRF-aware forms</li>
+			</ul>
+		</section>
 
-    <!-- Technology Stack -->
-    <div class="row mb-5">
-        <div class="col-lg-8 mx-auto">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h2 class="card-title text-primary mb-3">
-                        <i class="fas fa-code me-2"></i>Technology Stack
-                    </h2>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5 class="text-secondary">Backend</h5>
-                            <ul class="list-unstyled">
-                                <li class="mb-1"><i class="fab fa-python me-2"></i>Python 3.x</li>
-                                <li class="mb-1"><i class="fas fa-flask me-2"></i>Flask Framework</li>
-                                <li class="mb-1"><i class="fas fa-database me-2"></i>SQLite Database</li>
-                                <li class="mb-1"><i class="fas fa-shield-alt me-2"></i>Flask-WTF (Forms)</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <h5 class="text-secondary">Frontend</h5>
-                            <ul class="list-unstyled">
-                                <li class="mb-1"><i class="fab fa-bootstrap me-2"></i>Bootstrap 5</li>
-                                <li class="mb-1"><i class="fab fa-css3-alt me-2"></i>Custom CSS</li>
-                                <li class="mb-1"><i class="fab fa-html5 me-2"></i>HTML5</li>
-                                <li class="mb-1"><i class="fab fa-js me-2"></i>JavaScript</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+		<section class="app-card">
+			<h2 class="mb-4 text-lg font-bold text-forest">Technology stack</h2>
+			<div class="grid gap-6 sm:grid-cols-2">
+				<div>
+					<h3 class="text-xs font-bold uppercase tracking-wider text-forest/60">Backend</h3>
+					<ul class="mt-2 space-y-1.5 text-sm text-forest/85">
+						<li><i class="fab fa-python mr-2 text-forest-light" aria-hidden="true"></i>Python &amp; Flask</li>
+						<li><i class="fas fa-database mr-2 text-forest-light" aria-hidden="true"></i>SQLAlchemy</li>
+						<li><i class="fas fa-shield-halved mr-2 text-forest-light" aria-hidden="true"></i>Flask-Login &amp; WTForms</li>
+					</ul>
+				</div>
+				<div>
+					<h3 class="text-xs font-bold uppercase tracking-wider text-forest/60">Frontend</h3>
+					<ul class="mt-2 space-y-1.5 text-sm text-forest/85">
+						<li><i class="fas fa-wind mr-2 text-forest-light" aria-hidden="true"></i>Tailwind CSS</li>
+						<li><i class="fab fa-css3-alt mr-2 text-forest-light" aria-hidden="true"></i>PostCSS pipeline</li>
+						<li><i class="fab fa-font-awesome mr-2 text-forest-light" aria-hidden="true"></i>Font Awesome icons</li>
+					</ul>
+				</div>
+			</div>
+		</section>
 
-    <!-- Developer Section -->
-    <div class="row mb-5">
-        <div class="col-lg-8 mx-auto">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h2 class="card-title text-primary mb-3">
-                        <i class="fas fa-user me-2"></i>About the Developer
-                    </h2>
-                    <p class="card-text">
-                        This project was developed as a learning experience in modern web development with Flask. 
-                        It demonstrates understanding of web frameworks, database design, user authentication, 
-                        and responsive web design principles.
-                    </p>
-                    <p class="card-text">
-                        The goal was to create a fully functional blogging platform that showcases best practices 
-                        in Flask development while providing a great user experience.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Project Goals -->
-    <div class="row mb-5">
-        <div class="col-lg-8 mx-auto">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h2 class="card-title text-primary mb-3">
-                        <i class="fas fa-bullseye me-2"></i>Project Goals
-                    </h2>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5 class="text-secondary">Learning Objectives</h5>
-                            <ul class="list-unstyled">
-                                <li class="mb-1"><i class="fas fa-graduation-cap me-2"></i>Flask Framework Mastery</li>
-                                <li class="mb-1"><i class="fas fa-graduation-cap me-2"></i>Database Design</li>
-                                <li class="mb-1"><i class="fas fa-graduation-cap me-2"></i>User Authentication</li>
-                                <li class="mb-1"><i class="fas fa-graduation-cap me-2"></i>Web Security</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <h5 class="text-secondary">Target Audience</h5>
-                            <ul class="list-unstyled">
-                                <li class="mb-1"><i class="fas fa-users me-2"></i>Blog Writers</li>
-                                <li class="mb-1"><i class="fas fa-users me-2"></i>Content Creators</li>
-                                <li class="mb-1"><i class="fas fa-users me-2"></i>Developers Learning Flask</li>
-                                <li class="mb-1"><i class="fas fa-users me-2"></i>Web Development Students</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Connect Section -->
-    <div class="row mb-5">
-        <div class="col-lg-8 mx-auto">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <h2 class="card-title text-primary mb-3">
-                        <i class="fas fa-link me-2"></i>Connect & Contribute
-                    </h2>
-                    <p class="card-text mb-3">
-                        This is an open-source project. Feel free to explore the code, contribute, or use it as a learning resource.
-                    </p>
-                    <div class="d-flex justify-content-center gap-3">
-                        <a href="https://github.com/GouriSahil/Flask-Blog" class="btn btn-outline-primary" target="_blank">
-                            <i class="fab fa-github me-2"></i>View on GitHub
-                        </a>
-                        <a href="{{ url_for('main.home') }}" class="btn btn-primary">
-                            <i class="fas fa-home me-2"></i>Back to Home
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Add Font Awesome for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+		<section class="app-card text-center">
+			<h2 class="text-lg font-bold text-forest">Connect</h2>
+			<p class="mx-auto mt-2 max-w-md text-sm text-forest/75">Explore the source or head back to the feed.</p>
+			<div class="mt-6 flex flex-wrap justify-center gap-3">
+				<a href="https://github.com/GouriSahil/Flask-Blog" class="app-btn-secondary gap-2" target="_blank" rel="noopener noreferrer">
+					<i class="fab fa-github" aria-hidden="true"></i>
+					GitHub
+				</a>
+				<a href="{{ url_for('main.home') }}" class="app-btn-primary gap-2">
+					<i class="fas fa-house" aria-hidden="true"></i>
+					Home
+				</a>
+			</div>
+		</section>
+	</div>
 {% endblock content %}
